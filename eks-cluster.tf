@@ -1,3 +1,4 @@
+# Create a IAM Role for EKS Cluster
 resource "aws_iam_role" "eks-cluster-role" {
   name = "eks-cluster-role"
 
@@ -17,6 +18,7 @@ resource "aws_iam_role" "eks-cluster-role" {
 POLICY
 }
 
+# Create IAM Role Policies
 resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.eks-cluster-role.name
@@ -27,6 +29,7 @@ resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSVPCResourceContr
   role       = aws_iam_role.eks-cluster-role.name
 }
 
+# Create a Security Group for Cluster
 resource "aws_security_group" "eks-cluster-sg" {
   name        = "eks-cluster"
   description = "Cluster communication with worker nodes"
@@ -44,6 +47,7 @@ resource "aws_security_group" "eks-cluster-sg" {
   }
 }
 
+Create a EKS Cluster
 resource "aws_eks_cluster" "my-eks-cluster" {
   name     = var.cluster-name
   role_arn = aws_iam_role.eks-cluster-role.arn

@@ -1,3 +1,4 @@
+# Create a VPC
 resource "aws_vpc" "eks-vpc" {
   cidr_block = var.vpc_cidr
 
@@ -7,6 +8,7 @@ resource "aws_vpc" "eks-vpc" {
   )
 }
 
+# Create a Public Subnet
 resource "aws_subnet" "eks-pub-subnet" {
   count      = length(var.pub_subnet_cidr)  
   vpc_id     = aws_vpc.eks-vpc.id

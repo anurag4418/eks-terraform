@@ -1,3 +1,4 @@
+# Create a IAM Role for Worker Nodes
 resource "aws_iam_role" "worker-node-role" {
   name = "worker-node-role"
 
@@ -17,6 +18,7 @@ resource "aws_iam_role" "worker-node-role" {
 POLICY
 }
 
+# Create a IAM Role Policies
 resource "aws_iam_role_policy_attachment" "worker-node-AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.worker-node-role.name
@@ -32,6 +34,7 @@ resource "aws_iam_role_policy_attachment" "worker-node-AmazonEC2ContainerRegistr
   role       = aws_iam_role.worker-node-role.name
 }
 
+# Create EKS Node Group
 resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = aws_eks_cluster.my-eks-cluster.name
   node_group_name = "eks-node-group"
